@@ -9,7 +9,7 @@ type SelectProps = {
 }
 
 const Select = (props: SelectProps) => {
-    const {allUsers} = props;
+    const { allUsers } = props;
     const [availableUsers, setAvailableUsers] = useState<User[]>([]);
     const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
     const [isHighlighted, setIsHighlighted] = useState<boolean>(false);
@@ -19,17 +19,23 @@ const Select = (props: SelectProps) => {
 
     useEffect(() => {
         const handleClickOutside = (event: any) => {
-          if (editableDivRef.current && !editableDivRef.current.contains(event.target)) {
-            setShowSearch(false);
-          }
+            if (editableDivRef.current && !editableDivRef.current.contains(event.target)) {
+                setShowSearch(false);
+            }
         };
-    
+
         document.addEventListener('click', handleClickOutside);
-    
+
+        if (editableDivRef.current) {
+            editableDivRef.current?.focus();
+        }
+
         return () => {
-          document.removeEventListener('click', handleClickOutside);
+            document.removeEventListener('click', handleClickOutside);
         };
-      }, []);
+
+    }, []);
+
     useEffect(() => {
         setAvailableUsers(allUsers);
     }, [allUsers]);
@@ -40,11 +46,11 @@ const Select = (props: SelectProps) => {
         const remainingUsers = availableUsers.filter(availableUser => availableUser.email !== user.email);
         setAvailableUsers(remainingUsers);
         setSearchString("");
-        document.getElementById("search-item")!.innerHTML="<br/>";
+        document.getElementById("search-item")!.innerHTML = "<br/>";
     }
 
     const removeUser = (user: User, highlighted: boolean, setIsHighlighted: Function) => {
-        if (highlighted){
+        if (highlighted) {
             setIsHighlighted(false);
         }
         const newUsers = selectedUsers.filter(selectedUser => selectedUser.email !== user.email);
@@ -60,20 +66,20 @@ const Select = (props: SelectProps) => {
     const handleFocus = () => {
         setShowSearch(true);
     }
-  
+
     const handleDivClick = () => {
-      if (editableDivRef.current) {
-        placeCaretAtEnd(editableDivRef.current);
-      }
+        if (editableDivRef.current) {
+            placeCaretAtEnd(editableDivRef.current);
+        }
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         const key = event.key;
-        if (key === "Backspace" || key === "Delete"){
-            if (searchString.length === 0){
+        if (key === "Backspace" || key === "Delete") {
+            if (searchString.length === 0) {
                 event.preventDefault();
                 console.log("back");
-                if (isHighlighted){
+                if (isHighlighted) {
                     const updatedUsers = selectedUsers.slice(0, -1);
                     setSelectedUsers(updatedUsers);
                     setIsHighlighted(false);
@@ -81,11 +87,11 @@ const Select = (props: SelectProps) => {
                     setIsHighlighted(true);
                 }
             } else {
-                setSearchString((state) => (state.substring(0, state.length-1)))
+                setSearchString((state) => (state.substring(0, state.length - 1)))
             }
         } else {
-            if (event.code !== `Key${key.toUpperCase()}` && 
-                key !== " " && 
+            if (event.code !== `Key${key.toUpperCase()}` &&
+                key !== " " &&
                 key !== "@" &&
                 key !== "." &&
                 key !== "-" &&
@@ -93,33 +99,33 @@ const Select = (props: SelectProps) => {
                 event.preventDefault();
                 return;
             }
-            setSearchString((state) => (state+event.key.valueOf()));
+            setSearchString((state) => (state + event.key.valueOf()));
         }
     }
-  
-    const placeCaretAtEnd = (el:HTMLElement) => {
-      const range = document.createRange();
-      const sel = window.getSelection()!;
-      range.selectNodeContents(el);
-      range.collapse(false);
-      sel.removeAllRanges();
-      sel.addRange(range);
-      el.focus();
+
+    const placeCaretAtEnd = (el: HTMLElement) => {
+        const range = document.createRange();
+        const sel = window.getSelection()!;
+        range.selectNodeContents(el);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        el.focus();
     };
-    
+
     return (
         <>
-        <div className='select-box' contentEditable='true' ref={editableDivRef} onClick={handleDivClick} onKeyDown={handleKeyDown} onBlur={handleBlur} onFocus={handleFocus}>
-            <div className='select-box-list'>
-                {selectedUsers.map((user, id) => 
-                    <div className='list-item' contentEditable='false'>
-                        <Chip user={user} key={id} fn={removeUser} highlight={isHighlighted ? (id === selectedUsers.length-1 ? true : false) : false} setIsHighlighted={setIsHighlighted}/>
-                    </div>
-                )}
-                <div className="list-item" id="search-item" contentEditable='true'><br/></div>
+            <div className='select-box' contentEditable='true' ref={editableDivRef} onClick={handleDivClick} onKeyDown={handleKeyDown} onBlur={handleBlur} onFocus={handleFocus}>
+                <div className='select-box-list'>
+                    {selectedUsers.map((user, id) =>
+                        <div className='list-item' contentEditable='false'>
+                            <Chip user={user} key={id} fn={removeUser} highlight={isHighlighted ? (id === selectedUsers.length - 1 ? true : false) : false} setIsHighlighted={setIsHighlighted} />
+                        </div>
+                    )}
+                    <div className="list-item" id="search-item" contentEditable='true'><br /></div>
+                </div>
             </div>
-        </div>
-        <Search input={searchString} availableUsers={availableUsers} visible={showSearch} fn={addUser}/>
+            <Search input={searchString} availableUsers={availableUsers} visible={showSearch} fn={addUser} />
         </>
     );
 }

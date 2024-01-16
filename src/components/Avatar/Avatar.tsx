@@ -1,16 +1,16 @@
 import { User } from "../../users";
 import { sha256 } from 'js-sha256';
 
-const Avatar = (props: {user: User, size: string}) => {
-    const {name, email} = props.user;
-    const {size} = props;
+const Avatar = (props: { user: User, size: string }) => {
+    const { name, email } = props.user;
+    const { size } = props;
     return (
         <img alt={name} src={getGravatarURL(email)} style={{
             minHeight: size,
             maxHeight: size,
             borderRadius: size,
             marginRight: "5px",
-        }}/>
+        }} />
     )
 }
 

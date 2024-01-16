@@ -1,4 +1,14 @@
-# Getting Started with Create React App
+# Chip Component
+
+Uses CRA with Typescript, with pure CSS. 
+
+Backspace highlights and deletes chips.
+
+Faker.js for user data generation, Fuse.js for fuzzy search, Gravatar for avatar images.
+
+![Screenshot](./home.png)
+
+# CRA-README
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

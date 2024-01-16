@@ -1,5 +1,5 @@
 import Select from "../../components/Select/Select";
-import {USERS} from "../../users";
+import { USERS } from "../../users";
 
 const Home = () => {
     return (
