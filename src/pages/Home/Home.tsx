@@ -3,9 +3,7 @@ import {USERS} from "../../users";
 
 const Home = () => {
     return (
-        <div >
-            <Select allUsers={USERS} />
-        </div>
+        <Select allUsers={USERS} />
     );
 }
 

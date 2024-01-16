@@ -1,0 +1,32 @@
+.dropdown {
+    max-height: 300px;
+    width: 500px;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    /* flex-direction: column;  */
+    background-color: #FEFFFE;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+.item {
+    display: inline-flex;
+    justify-content: left;
+    padding: 10px;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.item:hover {
+    background-color: #EAEBEB;
+}
+
+.email {
+    text-transform: lowercase;
+    color: #C2C2C2;
+}
