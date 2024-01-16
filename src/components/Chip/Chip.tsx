@@ -1,23 +1,27 @@
 import './Chip.css'
 import {ReactComponent as XIcon} from '../../icons/close.svg';
 import { sha256 } from 'js-sha256';
+import { User } from '../../users';
 
 type ChipProps = {
-    name: string,
-    email: string
+    user: User,
+    fn: Function,
+    highlight: boolean,
+    setIsHighlighted: Function
 }
 
 const Chip = (props:ChipProps) => {
-    const {name, email} = props;
+    const {fn, user, highlight, setIsHighlighted} = props;
+    const {name, email} = user;
     return (
-        <div className='chip-container'>
+        <div className={`chip-container ${highlight ? 'highlight' : ''}`} contentEditable='false'>
             <div className='flex'>
                 <img alt={name} className='avatar' src={getGravatarURL(email)}/>
                 <div className='chip-body'>
                     <div className='name'>
                         {name}
                     </div>
-                    <XIcon className='icon'/>
+                    <XIcon className='icon' onClick={()=>{fn(email, highlight, setIsHighlighted)}}/>
                 </div>
 
             </div>

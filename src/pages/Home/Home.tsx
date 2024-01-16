@@ -1,9 +1,12 @@
-import Chip from "../../components/Chip/Chip";
+import Select from "../../components/Select/Select";
+import {USERS} from "../../users";
 
 const Home = () => {
-    return (<div style={{display: "flex", justifyContent:'center'}}>
-        <Chip name={"Marina Augustine"} email={"marina.augustine@example.com"}/>
-    </div>);
+    return (
+        <div >
+            <Select allUsers={USERS} />
+        </div>
+    );
 }
 
 export default Home;

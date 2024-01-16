@@ -1,14 +1,18 @@
 .chip-container {
   background-color: #DADCDA;
   color: #656565;
-  margin-right: 5px;
   white-space: nowrap;
   font-size: 15px;
   line-height: 0%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   min-height: 30px;
   border-radius: 15px;
+  width: fit-content;
+}
+
+.highlight {
+  background-color: #afefff;
 }
 
 .chip-body {
